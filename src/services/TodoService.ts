@@ -1,9 +1,12 @@
 import axios from "axios";
+import "dotenv/config";
 
 export class TodoService {
+  base_url: string | undefined = process.env.BASE_URL;
+
   async getAllTodos() {
     try {
-      const response = await axios.get("http://localhost:5000/api/v1/");
+      const response = await axios.get(`${this.base_url}`);
       return response.data;
     } catch (err) {
       return [];
@@ -12,10 +15,7 @@ export class TodoService {
 
   async createTodo(createTodoDTO: { text: string }) {
     try {
-      const resonse = await axios.post(
-        "http://localhost:5000/api/v1",
-        createTodoDTO
-      );
+      await axios.post(`${this.base_url}`, createTodoDTO);
     } catch (err) {
       console.log(err);
     }
@@ -23,9 +23,7 @@ export class TodoService {
 
   async markTodoAsDone(id: string) {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/v1/${id}/done`
-      );
+      await axios.get(`${this.base_url}/${id}/done`);
     } catch (err) {
       console.log(err);
     }
