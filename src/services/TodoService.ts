@@ -1,9 +1,8 @@
 import axios from "axios";
-import "dotenv/config";
+// import "dotenv/config";
 
 export class TodoService {
-  base_url: string | undefined = process.env.BASE_URL;
-
+  base_url: string | undefined = import.meta.env.VITE_BASE_URL;
   async getAllTodos() {
     try {
       const response = await axios.get(`${this.base_url}`);
